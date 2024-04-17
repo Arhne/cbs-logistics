@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./">
+
+    <title>CBS Logistics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <form class="container" onsubmit="sendEmail(); reset(); return false;">
+
+        <div class="col | flow">
+            <h3>CBS Logistics Form</h3>
+            <input type="text" id="name" placeholder="Enter first name here..." required />
+            <input type="text" id="Lname" placeholder="Enter last name here..." required />
+            <input type="email" value="" id="email" placeholder="Enter email here..." required />
+            <input type="tel" id="phone" placeholder="Enter mobile number here..." required />
+
+            <label for="Sindustry">Choose your Industry</label>
+            <select name="industry" id="Sindustry">
+                <option value="Not Specified">Not Specified</option>
+                <option value="Construction">Construction</option>
+                <option value="Oil & Gas">Oil & Gas</option>
+                <option value="Pharmaceuticals">Pharmaceuticals</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Hospitality">Hospitality</option>
+                <option value="Aviation & Travel">Aviation & Travel</option>
+                <option value="Education">Education</option>
+                <option value="Telecom">Telecom</option>
+                <option value="Food & Beverage">Food & Beverage</option>
+                <option value="Retail Outlets">Retail Outlets</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Banking Operations">Banking Operations</option>
+                <option value="Government">Government</option>
+            </select>
+
+
+            <div class="tick">
+                <h3 class="sub-title">Click on the service you want us to offer<h3>
+
+                        <div class="check-group">
+                            <input type="checkbox" name="chkbox" id="procure" value="Procurement">
+                            <label class="service-needed" for="procure">Procurement</label>
+                        </div>
+                        <div class="check-group">
+                            <input type="checkbox" name="chkbox" id="housing" value="Warehousing">
+                            <label class="service-needed" for="housing">Warehousing of finished goods</label>
+                        </div>
+                        <div class="check-group">
+                            <input type="checkbox" name="chkbox" id="transport" value="Transportation">
+                            <label class="service-needed" for="transport">Transportation of finished goods</label>
+                        </div>
+            </div>
+
+            <fieldset>
+                <legend>
+                    Enter Service Details
+                </legend>
+                <p><i>Note: Only enter fields applicable to you </i></p>
+                <div class="col | flow">
+                    <div class="col">
+                        <p>Enter Procurement Details</p>
+                        <textarea name="pdetails" id="pdetails" cols="30" rows="15"
+                            placeholder="What do you need and quantity?"></textarea>
+                    </div>
+                    <div class="col">
+                        <p>Enter Logistics Details</p>
+                        <p>Where do you want your goods delivered?</p>
+
+                        <label for="Ldetails"">From:</label>
+                <input type=" text" name="Ldetails" id="Ldetails" placeholder="Enter pickup address..">
+                            <label for="Tdetails" class="destination">To:</label>
+                            <input type=" text" name="Tdetails" id="Tdetails" placeholder="Enter drop off address..">
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    
+    const fName = document.getElementById("name");
+    const LName = document.getElementById("Lname");
+    const Sender = document.getElementById("email");
+    const Phone = document.getElementById("phone");
+    const selectElement = document.getElementById("Sindustry");
+    const checkbox = document.getElementName("chkbox");
+    const serviceDetails = document.getElementById("pdetails");
+    const From = document.getElementById("Ldetails");
+    const To = document.getElementById("Tdetails");
+    
+
+function sendEmail() {
+   
+
+    const bodyMessage = `Full Name: ${LName.value + ","} ${fName.value}<br> Senders Email: ${Sender.value}<br>
+    Phone No: ${Phone.value}<br> Industry: ${selectElement.value}<br> Service:${checkbox.checked.value}<br> Procurement Details: ${serviceDetails.value}<br>
+    Logistics Info: From: ${From.value} To: ${To.value}<br> `
+
+    const subject = `I am Into ${selectElement.value} Industry and I Need Your Service`
+
+    Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "ann.nwosu.g20@gmail.com",
+        Password: "643EA00C79F7F84B04D6F41F8C788969100F",
+        To: 'ann.nwosu.g20@gmail.com',
+        From: 'ann.nwosu.g20@gmail.com',
+        Subject: subject,
+        Body: bodyMessage
+    }).then(
+        message => {
+            if (message == "OK") {
+                Swal.fire({
+                    title: "Submitted Successfully!",
+                    text: "CBS logistics will get back to you shortly!",
+                    icon: "success"
+                });
+            }
+            else{
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                    });
+            }
+        }
+    );
+     
+}
+
+</script>
+</body>
