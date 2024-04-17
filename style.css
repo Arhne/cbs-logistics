@@ -120,3 +120,6 @@ button:hover {
     background-color: #1E0342;
     color: #9ac8cd;
 }
+a{
+    text-decoration: none;
+}
